@@ -34,11 +34,31 @@ type Blockchain struct {		// My first Blockchain!
 	blocks []*Block
 }
 
-func (bc *Blockchain) AddBlock(data string) {		// AddBlock adds a new block to the blockchain
+func (bc *Blockchain) AddBlock(data string) {					// AddBlock adds a new block to the blockchain
 	prevBlock := bc.blocks[len(bc.blocks)-1]
 	newBlock := NewBlock(data, prevBlock.Hash)
 	bc.blocks = append(bc.blocks, newBlock) 
 }
 
+func GenesisBlock() *Block {									// GenesisBlock creates the first block in the blockchain
+	return NewBlock("Genesis Block", []byte{})
+}
 
+func NewBlockchain() *Blockchain {								// NewBlockchain creates a new blockchain with the genesis block
+	return &Blockchain{[]*Block{GenesisBlock()}}
+}
+
+func main() {													// Main function to run the blockchain
+	bc := newBlockchain()
+
+	bc.AddBlock("Send 1 MBX to Edward")
+	bc.AddBlock("Send 5 MBX to Awn")
+
+	for _, block := range bc.blocks {
+		fmt.Printf("Prev. hash: %x\n", block.PrevBlockHash)
+		fmt.Printf("Data: %s\n", block.Data)
+		fmt.Printf("Hash: %x\n", block.Hash)
+		fmt.Println()
+	}
+}
 
