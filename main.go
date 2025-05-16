@@ -38,4 +38,7 @@ func (bc *Blockchain) AddBlock(data string) {		// AddBlock adds a new block to t
 	prevBlock := bc.blocks[len(bc.blocks)-1]
 	newBlock := NewBlock(data, prevBlock.Hash)
 	bc.blocks = append(bc.blocks, newBlock) 
+}
+
+
 
